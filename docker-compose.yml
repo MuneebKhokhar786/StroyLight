@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: storylight
+      POSTGRES_PASSWORD: storylight
+      POSTGRES_DB: storylight
+    ports:
+      - "5432:5432"
+    volumes:
+      - storylight-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U storylight"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  storylight-postgres:

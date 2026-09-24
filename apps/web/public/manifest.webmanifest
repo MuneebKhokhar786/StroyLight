@@ -1,0 +1,10 @@
+{
+  "name": "Storylight",
+  "short_name": "Storylight",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "start_url": "/",
+  "background_color": "#fffaf0",
+  "theme_color": "#ff8c42",
+  "icons": []
+}
