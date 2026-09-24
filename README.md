@@ -26,6 +26,7 @@ See `.env.example`. `AI_MODE` is one of:
 
 - `pnpm run test:unit` — unit tests, no external services.
 - `pnpm run test` — full suite (adds integration tests against a Testcontainers Postgres once Phase 5 lands).
+- `pnpm run test:e2e` — Playwright, against WebKit (iPad Pro 11, portrait and landscape) and Chromium desktop. Needs a running Postgres (`docker compose up -d`, then `pnpm --filter @storylight/api exec drizzle-kit migrate`); starts both dev servers itself.
 - `pnpm run verify:quick` — lint + typecheck + unit; run before every commit.
 
 ## Architecture

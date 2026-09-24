@@ -56,7 +56,11 @@ async function resumeOrCreateFamily(db: Db, request: FastifyRequest, reply: impo
 
   reply.setCookie(COOKIE_NAME, token, {
     httpOnly: true,
-    secure: true,
+    // Unlike Chromium, WebKit/Safari does not treat http://localhost as a
+    // secure context for the Secure cookie attribute — it needs real TLS.
+    // Forcing `secure: true` unconditionally silently drops the cookie on
+    // Safari in local dev (found via the iPad Playwright E2E projects).
+    secure: request.protocol === "https",
     sameSite: "lax",
     path: "/",
     expires: expiresAt,
