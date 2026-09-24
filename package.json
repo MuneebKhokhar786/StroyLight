@@ -15,10 +15,12 @@
     "test:unit": "pnpm --recursive run test:unit",
     "verify:quick": "pnpm run lint && pnpm run typecheck && pnpm run test:unit",
     "format": "prettier --write .",
-    "wt:setup": "tsx scripts/wt-setup.ts"
+    "wt:setup": "tsx scripts/wt-setup.ts",
+    "generate:fixture-story": "tsx scripts/generate-fixture-story.ts"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
+    "@storylight/shared": "workspace:*",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
     "@typescript-eslint/parser": "^8.15.0",
     "eslint": "^9.15.0",

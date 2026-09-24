@@ -1,4 +1,4 @@
-import { pgTable, uuid, timestamp, text, jsonb, check } from "drizzle-orm/pg-core";
+import { pgTable, uuid, timestamp, text, jsonb, integer, check, unique } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
 /**
@@ -43,4 +43,26 @@ export const childProfiles = pgTable(
       sql`${table.ageBand} in ('3-4','5-6','7-8')`,
     ),
   ],
+);
+
+/**
+ * "Each page earns once per mode" is the unique constraint, not application
+ * logic — the natural-key idempotency pattern ADR 0004 will formalize for
+ * the Phase 3 ledger, used here one phase early. No rewards are granted yet;
+ * this just records that the read happened.
+ */
+export const pageCompletions = pgTable(
+  "page_completions",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    profileId: uuid("profile_id")
+      .notNull()
+      .references(() => childProfiles.id, { onDelete: "cascade" }),
+    pageId: text("page_id").notNull(),
+    mode: text("mode").notNull(),
+    dwellMs: integer("dwell_ms").notNull(),
+    helpTaps: integer("help_taps").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [unique("page_completions_profile_page_mode_key").on(table.profileId, table.pageId, table.mode)],
 );

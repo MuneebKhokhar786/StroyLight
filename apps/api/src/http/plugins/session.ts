@@ -1,9 +1,11 @@
-import type { FastifyInstance, FastifyRequest } from "fastify";
+import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import fastifyCookie from "@fastify/cookie";
+import fp from "fastify-plugin";
 import { createHash, randomBytes } from "node:crypto";
 import { eq } from "drizzle-orm";
 import { families, sessions } from "../../db/schema.js";
 import type { Db } from "../../db/client.js";
+import { ProblemError } from "./errors.js";
 
 const COOKIE_NAME = "sl_session";
 const SESSION_TTL_DAYS = 30;
@@ -11,6 +13,9 @@ const SESSION_TTL_DAYS = 30;
 declare module "fastify" {
   interface FastifyRequest {
     familyId: string | null;
+  }
+  interface FastifyInstance {
+    requireFamily(request: FastifyRequest, reply: FastifyReply): Promise<void>;
   }
 }
 
@@ -60,18 +65,42 @@ async function resumeOrCreateFamily(db: Db, request: FastifyRequest, reply: impo
   return family.id;
 }
 
+async function resolveFamilyId(db: Db, request: FastifyRequest): Promise<string | null> {
+  const token = request.cookies[COOKIE_NAME];
+  if (!token) return null;
+
+  const tokenHash = hashToken(token);
+  const [row] = await db
+    .select({ familyId: sessions.familyId, expiresAt: sessions.expiresAt })
+    .from(sessions)
+    .where(eq(sessions.tokenHash, tokenHash))
+    .limit(1);
+
+  if (!row || row.expiresAt.getTime() <= Date.now()) return null;
+  return row.familyId;
+}
+
 /**
  * Same-origin, HttpOnly cookie session. Anonymous by design (no accounts —
- * see ADR-0006 and section 16 "Won't"). The preHandler below is what every
- * :profileId route relies on to enforce cross-family authorization.
+ * see ADR-0006 and section 16 "Won't"). Wrapped with fastify-plugin so
+ * `requireFamily` and the `familyId` request decoration are visible to
+ * every sibling route plugin, not just children registered inside this one.
  */
-export async function sessionPlugin(app: FastifyInstance, opts: { db: Db }) {
+export const sessionPlugin = fp(async function sessionPlugin(app: FastifyInstance, opts: { db: Db }) {
   await app.register(fastifyCookie);
 
   app.decorateRequest("familyId", null);
+
+  app.decorate("requireFamily", async function requireFamily(request: FastifyRequest) {
+    const familyId = await resolveFamilyId(opts.db, request);
+    if (!familyId) {
+      throw new ProblemError(401, "no_session", "No active session.");
+    }
+    request.familyId = familyId;
+  });
 
   app.post("/api/v1/session", async (request, reply) => {
     const familyId = await resumeOrCreateFamily(opts.db, request, reply);
     return { familyId };
   });
-}
+});

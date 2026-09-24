@@ -33,6 +33,7 @@ export default [
     rules: {
       ...tseslint.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "no-redeclare": "off",
       "@typescript-eslint/no-redeclare": "off",
       // TS itself catches genuinely undefined identifiers; no-undef doesn't

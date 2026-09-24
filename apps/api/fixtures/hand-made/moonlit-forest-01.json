@@ -1,0 +1,962 @@
+{
+  "id": "moonlit-forest-01",
+  "kind": "original",
+  "title": "The Lantern of Moonlit Forest",
+  "worldId": "moonlit-forest",
+  "pages": [
+    {
+      "id": "moonlit-forest-01-p1",
+      "pageNumber": 1,
+      "text": "Nora tiptoed into the moonlit forest with her lantern glowing soft and gold.",
+      "tokens": [
+        {
+          "i": 0,
+          "start": 0,
+          "end": 4,
+          "text": "Nora",
+          "norm": "nora",
+          "sentence": 0
+        },
+        {
+          "i": 1,
+          "start": 5,
+          "end": 12,
+          "text": "tiptoed",
+          "norm": "tiptoed",
+          "sentence": 0
+        },
+        {
+          "i": 2,
+          "start": 13,
+          "end": 17,
+          "text": "into",
+          "norm": "into",
+          "sentence": 0
+        },
+        {
+          "i": 3,
+          "start": 18,
+          "end": 21,
+          "text": "the",
+          "norm": "the",
+          "sentence": 0
+        },
+        {
+          "i": 4,
+          "start": 22,
+          "end": 29,
+          "text": "moonlit",
+          "norm": "moonlit",
+          "sentence": 0
+        },
+        {
+          "i": 5,
+          "start": 30,
+          "end": 36,
+          "text": "forest",
+          "norm": "forest",
+          "sentence": 0
+        },
+        {
+          "i": 6,
+          "start": 37,
+          "end": 41,
+          "text": "with",
+          "norm": "with",
+          "sentence": 0
+        },
+        {
+          "i": 7,
+          "start": 42,
+          "end": 45,
+          "text": "her",
+          "norm": "her",
+          "sentence": 0
+        },
+        {
+          "i": 8,
+          "start": 46,
+          "end": 53,
+          "text": "lantern",
+          "norm": "lantern",
+          "sentence": 0
+        },
+        {
+          "i": 9,
+          "start": 54,
+          "end": 61,
+          "text": "glowing",
+          "norm": "glowing",
+          "sentence": 0
+        },
+        {
+          "i": 10,
+          "start": 62,
+          "end": 66,
+          "text": "soft",
+          "norm": "soft",
+          "sentence": 0
+        },
+        {
+          "i": 11,
+          "start": 67,
+          "end": 70,
+          "text": "and",
+          "norm": "and",
+          "sentence": 0
+        },
+        {
+          "i": 12,
+          "start": 71,
+          "end": 75,
+          "text": "gold",
+          "norm": "gold",
+          "sentence": 0
+        }
+      ],
+      "starWordIndices": [
+        2
+      ],
+      "illustrationUrl": "/worlds/moonlit-forest/placeholder.svg",
+      "narrationUrl": null,
+      "timings": [
+        [
+          0,
+          440
+        ],
+        [
+          530,
+          1135
+        ],
+        [
+          1225,
+          1665
+        ],
+        [
+          1755,
+          2140
+        ],
+        [
+          2230,
+          2835
+        ],
+        [
+          2925,
+          3475
+        ],
+        [
+          3565,
+          4005
+        ],
+        [
+          4095,
+          4480
+        ],
+        [
+          4570,
+          5175
+        ],
+        [
+          5265,
+          5870
+        ],
+        [
+          5960,
+          6400
+        ],
+        [
+          6490,
+          6875
+        ],
+        [
+          6965,
+          7405
+        ]
+      ],
+      "timingQuality": "word"
+    },
+    {
+      "id": "moonlit-forest-01-p2",
+      "pageNumber": 2,
+      "text": "A friendly owl named Pip blinked down from a tall, sleepy tree.",
+      "tokens": [
+        {
+          "i": 0,
+          "start": 0,
+          "end": 1,
+          "text": "A",
+          "norm": "a",
+          "sentence": 0
+        },
+        {
+          "i": 1,
+          "start": 2,
+          "end": 10,
+          "text": "friendly",
+          "norm": "friendly",
+          "sentence": 0
+        },
+        {
+          "i": 2,
+          "start": 11,
+          "end": 14,
+          "text": "owl",
+          "norm": "owl",
+          "sentence": 0
+        },
+        {
+          "i": 3,
+          "start": 15,
+          "end": 20,
+          "text": "named",
+          "norm": "named",
+          "sentence": 0
+        },
+        {
+          "i": 4,
+          "start": 21,
+          "end": 24,
+          "text": "Pip",
+          "norm": "pip",
+          "sentence": 0
+        },
+        {
+          "i": 5,
+          "start": 25,
+          "end": 32,
+          "text": "blinked",
+          "norm": "blinked",
+          "sentence": 0
+        },
+        {
+          "i": 6,
+          "start": 33,
+          "end": 37,
+          "text": "down",
+          "norm": "down",
+          "sentence": 0
+        },
+        {
+          "i": 7,
+          "start": 38,
+          "end": 42,
+          "text": "from",
+          "norm": "from",
+          "sentence": 0
+        },
+        {
+          "i": 8,
+          "start": 43,
+          "end": 44,
+          "text": "a",
+          "norm": "a",
+          "sentence": 0
+        },
+        {
+          "i": 9,
+          "start": 45,
+          "end": 49,
+          "text": "tall",
+          "norm": "tall",
+          "sentence": 0
+        },
+        {
+          "i": 10,
+          "start": 51,
+          "end": 57,
+          "text": "sleepy",
+          "norm": "sleepy",
+          "sentence": 0
+        },
+        {
+          "i": 11,
+          "start": 58,
+          "end": 62,
+          "text": "tree",
+          "norm": "tree",
+          "sentence": 0
+        }
+      ],
+      "starWordIndices": [
+        6
+      ],
+      "illustrationUrl": "/worlds/moonlit-forest/placeholder.svg",
+      "narrationUrl": null,
+      "timings": [
+        [
+          0,
+          275
+        ],
+        [
+          365,
+          1025
+        ],
+        [
+          1115,
+          1500
+        ],
+        [
+          1590,
+          2085
+        ],
+        [
+          2175,
+          2560
+        ],
+        [
+          2650,
+          3255
+        ],
+        [
+          3345,
+          3785
+        ],
+        [
+          3875,
+          4315
+        ],
+        [
+          4405,
+          4680
+        ],
+        [
+          4770,
+          5210
+        ],
+        [
+          5300,
+          5850
+        ],
+        [
+          5940,
+          6380
+        ]
+      ],
+      "timingQuality": "word"
+    },
+    {
+      "id": "moonlit-forest-01-p3",
+      "pageNumber": 3,
+      "text": "\"Will you help me find my lost acorn?\" asked Pip, hopping closer.",
+      "tokens": [
+        {
+          "i": 0,
+          "start": 1,
+          "end": 5,
+          "text": "Will",
+          "norm": "will",
+          "sentence": 0
+        },
+        {
+          "i": 1,
+          "start": 6,
+          "end": 9,
+          "text": "you",
+          "norm": "you",
+          "sentence": 0
+        },
+        {
+          "i": 2,
+          "start": 10,
+          "end": 14,
+          "text": "help",
+          "norm": "help",
+          "sentence": 0
+        },
+        {
+          "i": 3,
+          "start": 15,
+          "end": 17,
+          "text": "me",
+          "norm": "me",
+          "sentence": 0
+        },
+        {
+          "i": 4,
+          "start": 18,
+          "end": 22,
+          "text": "find",
+          "norm": "find",
+          "sentence": 0
+        },
+        {
+          "i": 5,
+          "start": 23,
+          "end": 25,
+          "text": "my",
+          "norm": "my",
+          "sentence": 0
+        },
+        {
+          "i": 6,
+          "start": 26,
+          "end": 30,
+          "text": "lost",
+          "norm": "lost",
+          "sentence": 0
+        },
+        {
+          "i": 7,
+          "start": 31,
+          "end": 36,
+          "text": "acorn",
+          "norm": "acorn",
+          "sentence": 0
+        },
+        {
+          "i": 8,
+          "start": 39,
+          "end": 44,
+          "text": "asked",
+          "norm": "asked",
+          "sentence": 1
+        },
+        {
+          "i": 9,
+          "start": 45,
+          "end": 48,
+          "text": "Pip",
+          "norm": "pip",
+          "sentence": 1
+        },
+        {
+          "i": 10,
+          "start": 50,
+          "end": 57,
+          "text": "hopping",
+          "norm": "hopping",
+          "sentence": 1
+        },
+        {
+          "i": 11,
+          "start": 58,
+          "end": 64,
+          "text": "closer",
+          "norm": "closer",
+          "sentence": 1
+        }
+      ],
+      "starWordIndices": [
+        2
+      ],
+      "illustrationUrl": "/worlds/moonlit-forest/placeholder.svg",
+      "narrationUrl": null,
+      "timings": [
+        [
+          0,
+          440
+        ],
+        [
+          530,
+          915
+        ],
+        [
+          1005,
+          1445
+        ],
+        [
+          1535,
+          1865
+        ],
+        [
+          1955,
+          2395
+        ],
+        [
+          2485,
+          2815
+        ],
+        [
+          2905,
+          3345
+        ],
+        [
+          3435,
+          3930
+        ],
+        [
+          4020,
+          4515
+        ],
+        [
+          4605,
+          4990
+        ],
+        [
+          5080,
+          5685
+        ],
+        [
+          5775,
+          6325
+        ]
+      ],
+      "timingQuality": "word"
+    },
+    {
+      "id": "moonlit-forest-01-p4",
+      "pageNumber": 4,
+      "text": "Nora and Pip searched under leaves, behind rocks, and inside a hollow log.",
+      "tokens": [
+        {
+          "i": 0,
+          "start": 0,
+          "end": 4,
+          "text": "Nora",
+          "norm": "nora",
+          "sentence": 0
+        },
+        {
+          "i": 1,
+          "start": 5,
+          "end": 8,
+          "text": "and",
+          "norm": "and",
+          "sentence": 0
+        },
+        {
+          "i": 2,
+          "start": 9,
+          "end": 12,
+          "text": "Pip",
+          "norm": "pip",
+          "sentence": 0
+        },
+        {
+          "i": 3,
+          "start": 13,
+          "end": 21,
+          "text": "searched",
+          "norm": "searched",
+          "sentence": 0
+        },
+        {
+          "i": 4,
+          "start": 22,
+          "end": 27,
+          "text": "under",
+          "norm": "under",
+          "sentence": 0
+        },
+        {
+          "i": 5,
+          "start": 28,
+          "end": 34,
+          "text": "leaves",
+          "norm": "leaves",
+          "sentence": 0
+        },
+        {
+          "i": 6,
+          "start": 36,
+          "end": 42,
+          "text": "behind",
+          "norm": "behind",
+          "sentence": 0
+        },
+        {
+          "i": 7,
+          "start": 43,
+          "end": 48,
+          "text": "rocks",
+          "norm": "rocks",
+          "sentence": 0
+        },
+        {
+          "i": 8,
+          "start": 50,
+          "end": 53,
+          "text": "and",
+          "norm": "and",
+          "sentence": 0
+        },
+        {
+          "i": 9,
+          "start": 54,
+          "end": 60,
+          "text": "inside",
+          "norm": "inside",
+          "sentence": 0
+        },
+        {
+          "i": 10,
+          "start": 61,
+          "end": 62,
+          "text": "a",
+          "norm": "a",
+          "sentence": 0
+        },
+        {
+          "i": 11,
+          "start": 63,
+          "end": 69,
+          "text": "hollow",
+          "norm": "hollow",
+          "sentence": 0
+        },
+        {
+          "i": 12,
+          "start": 70,
+          "end": 73,
+          "text": "log",
+          "norm": "log",
+          "sentence": 0
+        }
+      ],
+      "starWordIndices": [
+        4
+      ],
+      "illustrationUrl": "/worlds/moonlit-forest/placeholder.svg",
+      "narrationUrl": null,
+      "timings": [
+        [
+          0,
+          440
+        ],
+        [
+          530,
+          915
+        ],
+        [
+          1005,
+          1390
+        ],
+        [
+          1480,
+          2140
+        ],
+        [
+          2230,
+          2725
+        ],
+        [
+          2815,
+          3365
+        ],
+        [
+          3455,
+          4005
+        ],
+        [
+          4095,
+          4590
+        ],
+        [
+          4680,
+          5065
+        ],
+        [
+          5155,
+          5705
+        ],
+        [
+          5795,
+          6070
+        ],
+        [
+          6160,
+          6710
+        ],
+        [
+          6800,
+          7185
+        ]
+      ],
+      "timingQuality": "word"
+    },
+    {
+      "id": "moonlit-forest-01-p5",
+      "pageNumber": 5,
+      "text": "At last, the little acorn sparkled beside a quiet, bubbling stream.",
+      "tokens": [
+        {
+          "i": 0,
+          "start": 0,
+          "end": 2,
+          "text": "At",
+          "norm": "at",
+          "sentence": 0
+        },
+        {
+          "i": 1,
+          "start": 3,
+          "end": 7,
+          "text": "last",
+          "norm": "last",
+          "sentence": 0
+        },
+        {
+          "i": 2,
+          "start": 9,
+          "end": 12,
+          "text": "the",
+          "norm": "the",
+          "sentence": 0
+        },
+        {
+          "i": 3,
+          "start": 13,
+          "end": 19,
+          "text": "little",
+          "norm": "little",
+          "sentence": 0
+        },
+        {
+          "i": 4,
+          "start": 20,
+          "end": 25,
+          "text": "acorn",
+          "norm": "acorn",
+          "sentence": 0
+        },
+        {
+          "i": 5,
+          "start": 26,
+          "end": 34,
+          "text": "sparkled",
+          "norm": "sparkled",
+          "sentence": 0
+        },
+        {
+          "i": 6,
+          "start": 35,
+          "end": 41,
+          "text": "beside",
+          "norm": "beside",
+          "sentence": 0
+        },
+        {
+          "i": 7,
+          "start": 42,
+          "end": 43,
+          "text": "a",
+          "norm": "a",
+          "sentence": 0
+        },
+        {
+          "i": 8,
+          "start": 44,
+          "end": 49,
+          "text": "quiet",
+          "norm": "quiet",
+          "sentence": 0
+        },
+        {
+          "i": 9,
+          "start": 51,
+          "end": 59,
+          "text": "bubbling",
+          "norm": "bubbling",
+          "sentence": 0
+        },
+        {
+          "i": 10,
+          "start": 60,
+          "end": 66,
+          "text": "stream",
+          "norm": "stream",
+          "sentence": 0
+        }
+      ],
+      "starWordIndices": [
+        8
+      ],
+      "illustrationUrl": "/worlds/moonlit-forest/placeholder.svg",
+      "narrationUrl": null,
+      "timings": [
+        [
+          0,
+          330
+        ],
+        [
+          420,
+          860
+        ],
+        [
+          950,
+          1335
+        ],
+        [
+          1425,
+          1975
+        ],
+        [
+          2065,
+          2560
+        ],
+        [
+          2650,
+          3310
+        ],
+        [
+          3400,
+          3950
+        ],
+        [
+          4040,
+          4315
+        ],
+        [
+          4405,
+          4900
+        ],
+        [
+          4990,
+          5650
+        ],
+        [
+          5740,
+          6290
+        ]
+      ],
+      "timingQuality": "word"
+    },
+    {
+      "id": "moonlit-forest-01-p6",
+      "pageNumber": 6,
+      "text": "Pip hooted with joy, and Nora smiled all the way home.",
+      "tokens": [
+        {
+          "i": 0,
+          "start": 0,
+          "end": 3,
+          "text": "Pip",
+          "norm": "pip",
+          "sentence": 0
+        },
+        {
+          "i": 1,
+          "start": 4,
+          "end": 10,
+          "text": "hooted",
+          "norm": "hooted",
+          "sentence": 0
+        },
+        {
+          "i": 2,
+          "start": 11,
+          "end": 15,
+          "text": "with",
+          "norm": "with",
+          "sentence": 0
+        },
+        {
+          "i": 3,
+          "start": 16,
+          "end": 19,
+          "text": "joy",
+          "norm": "joy",
+          "sentence": 0
+        },
+        {
+          "i": 4,
+          "start": 21,
+          "end": 24,
+          "text": "and",
+          "norm": "and",
+          "sentence": 0
+        },
+        {
+          "i": 5,
+          "start": 25,
+          "end": 29,
+          "text": "Nora",
+          "norm": "nora",
+          "sentence": 0
+        },
+        {
+          "i": 6,
+          "start": 30,
+          "end": 36,
+          "text": "smiled",
+          "norm": "smiled",
+          "sentence": 0
+        },
+        {
+          "i": 7,
+          "start": 37,
+          "end": 40,
+          "text": "all",
+          "norm": "all",
+          "sentence": 0
+        },
+        {
+          "i": 8,
+          "start": 41,
+          "end": 44,
+          "text": "the",
+          "norm": "the",
+          "sentence": 0
+        },
+        {
+          "i": 9,
+          "start": 45,
+          "end": 48,
+          "text": "way",
+          "norm": "way",
+          "sentence": 0
+        },
+        {
+          "i": 10,
+          "start": 49,
+          "end": 53,
+          "text": "home",
+          "norm": "home",
+          "sentence": 0
+        }
+      ],
+      "starWordIndices": [
+        6
+      ],
+      "illustrationUrl": "/worlds/moonlit-forest/placeholder.svg",
+      "narrationUrl": null,
+      "timings": [
+        [
+          0,
+          385
+        ],
+        [
+          475,
+          1025
+        ],
+        [
+          1115,
+          1555
+        ],
+        [
+          1645,
+          2030
+        ],
+        [
+          2120,
+          2505
+        ],
+        [
+          2595,
+          3035
+        ],
+        [
+          3125,
+          3675
+        ],
+        [
+          3765,
+          4150
+        ],
+        [
+          4240,
+          4625
+        ],
+        [
+          4715,
+          5100
+        ],
+        [
+          5190,
+          5630
+        ]
+      ],
+      "timingQuality": "word"
+    }
+  ]
+}
