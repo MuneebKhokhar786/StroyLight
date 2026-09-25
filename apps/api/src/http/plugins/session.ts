@@ -103,8 +103,20 @@ export const sessionPlugin = fp(async function sessionPlugin(app: FastifyInstanc
     request.familyId = familyId;
   });
 
-  app.post("/api/v1/session", async (request, reply) => {
-    const familyId = await resumeOrCreateFamily(opts.db, request, reply);
-    return { familyId };
-  });
+  app.post(
+    "/api/v1/session",
+    // Section 12: "Rate limits on session creation" — an anonymous endpoint
+    // with no auth in front of it is exactly the kind of thing a script
+    // could hammer to mint families. 60/minute per IP was chosen after 10
+    // turned out too tight in practice: several devices behind one NAT
+    // (a school, an apartment building, or just this repo's own E2E run,
+    // which shares one API process — and one rate-limit bucket — across
+    // every browser project) can plausibly open the app in the same
+    // minute, and that's not the abuse case this guards against.
+    { config: { rateLimit: { max: 60, timeWindow: "1 minute" } } },
+    async (request, reply) => {
+      const familyId = await resumeOrCreateFamily(opts.db, request, reply);
+      return { familyId };
+    },
+  );
 });

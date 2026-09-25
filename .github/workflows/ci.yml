@@ -26,6 +26,43 @@ jobs:
       - run: pnpm run typecheck
       - run: pnpm run test:unit
 
+  integration:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: storylight
+          POSTGRES_PASSWORD: storylight
+          POSTGRES_DB: storylight
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U storylight"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      # Set here so apps/api/src/db/integration-global-setup.ts skips
+      # Testcontainers and points straight at this service container
+      # instead. Locally, a developer just runs `pnpm run test:integration`
+      # with Docker running — the same globalSetup starts its own container.
+      DATABASE_URL: postgres://storylight:storylight@localhost:5432/storylight
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.5.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @storylight/api exec drizzle-kit migrate
+      - run: pnpm --filter @storylight/api run test:integration
+
   e2e:
     runs-on: ubuntu-latest
     services:
@@ -67,5 +104,4 @@ jobs:
           path: playwright-report/
           retention-days: 14
 
-      # Phase 5 adds: integration (Testcontainers Postgres), build + size-limit,
-      # gitleaks, dependency audit.
+      # Phase 5 adds: build + size-limit, gitleaks, dependency audit.

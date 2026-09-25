@@ -8,13 +8,14 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run",
-    "test:unit": "vitest run unit.test.ts",
-    "test:integration": "vitest run integration.test.ts"
+    "test": "pnpm run test:unit && pnpm run test:integration",
+    "test:unit": "vitest run",
+    "test:integration": "vitest run --config vitest.integration.config.ts"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.1",
     "@fastify/helmet": "^12.0.1",
+    "@fastify/rate-limit": "^10.1.1",
     "@storylight/shared": "workspace:*",
     "drizzle-orm": "^0.36.1",
     "fastify": "^5.1.0",
@@ -25,6 +26,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@testcontainers/postgresql": "^10.16.0",
     "@types/node": "^22.9.0",
     "@types/pg": "^8.11.10",
     "drizzle-kit": "^0.28.1",

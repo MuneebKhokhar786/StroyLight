@@ -2,10 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1"
-    />
+    <!--
+      No maximum-scale: it disables pinch-zoom, an accessibility violation
+      (axe: meta-viewport, WCAG 1.4.4) — found running the E2E axe checks,
+      section 13.3. The home-screen manifest (display: fullscreen) is what
+      actually gives the kiosk-like feel; the viewport tag doesn't need to.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <title>Storylight</title>
   </head>

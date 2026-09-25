@@ -1,5 +1,6 @@
 import Fastify from "fastify";
 import helmet from "@fastify/helmet";
+import rateLimit from "@fastify/rate-limit";
 import { sql } from "drizzle-orm";
 import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 import type { Env } from "./config/env.js";
@@ -35,6 +36,11 @@ export function buildApp(env: Env, db: Db = createDb(env)) {
       },
     },
   });
+
+  // global: false — only routes that opt in via `config.rateLimit` are
+  // limited (section 12: "Rate limits on session creation, generation and
+  // events").
+  app.register(rateLimit, { global: false });
 
   app.register(errorsPlugin);
   app.register(csrfPlugin);

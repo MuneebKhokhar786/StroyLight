@@ -24,7 +24,17 @@ describe("GET /api/v1/stories/:id", () => {
     const response = await app.inject({ method: "GET", url: "/api/v1/stories/nope" });
 
     expect(response.statusCode).toBe(404);
-    expect(response.json().code).toBe("story_not_found");
+    // Content-type and requestId matter here, not just the status/code: a
+    // ProblemError thrown from a route only reaches errorsPlugin's custom
+    // formatting if that plugin's setErrorHandler actually applies globally
+    // — an unwrapped Fastify plugin's error handler is scoped to its own
+    // encapsulation context and silently never fires for sibling routes,
+    // falling back to Fastify's default shape, which happens to carry a
+    // matching `code` field too. Checking only `.code` doesn't catch that.
+    expect(response.headers["content-type"]).toContain("application/problem+json");
+    const body = response.json();
+    expect(body.code).toBe("story_not_found");
+    expect(typeof body.requestId).toBe("string");
 
     await app.close();
   });

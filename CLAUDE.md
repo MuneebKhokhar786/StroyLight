@@ -21,6 +21,7 @@ outside the repo; see docs/architecture.md for the summary that matters day to d
 - `AI_MODE` is `fake` everywhere except the lead's recording runs and the hosted demo. Tests never call real providers.
 - No child-facing input is free text. Every child input is a curated choice — see docs/decisions/0006-curated-only-child-input.md.
 - Secrets are server-side only, validated at boot in `apps/api/src/config/env.ts`. Claude Code must never read `.env*`.
+- Any Fastify plugin under `apps/api/src/http/plugins/` that adds a global hook, decorator, or error handler is wrapped with `fastify-plugin` (`fp(...)`) — an unwrapped plugin's effects are scoped to its own encapsulation context and silently never reach sibling-registered routes. This bit us three times in Phase 1 before becoming a rule; see docs/decisions/0015-wrap-global-fastify-plugins-with-fastify-plugin.md.
 
 ## Definition of done
 

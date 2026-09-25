@@ -97,7 +97,11 @@ export function Reader({ story, profileId, onFinished }: ReaderProps) {
   const canAdvanceLine = mode === "read_it_myself" && currentLine < lastSentence;
 
   return (
-    <div className="reader">
+    <main className="reader">
+      {/* Visually hidden: the shelf/illustration/mode already say what this
+          screen is for a sighted child, but axe (section 13.3) flags a page
+          with no level-one heading, and a screen-reader user needs one too. */}
+      <h1 className="visually-hidden">{story.title}</h1>
       <ModeSwitcher mode={mode} onChange={setMode} />
 
       <div className="reader-page">
@@ -164,6 +168,6 @@ export function Reader({ story, profileId, onFinished }: ReaderProps) {
       <p className="reader-page-count">
         Page {pageIndex + 1} of {story.pages.length}
       </p>
-    </div>
+    </main>
   );
 }

@@ -1,4 +1,5 @@
 import type { FastifyError, FastifyInstance } from "fastify";
+import fp from "fastify-plugin";
 import { randomUUID } from "node:crypto";
 
 /**
@@ -15,7 +16,16 @@ export class ProblemError extends Error {
   }
 }
 
-export async function errorsPlugin(app: FastifyInstance) {
+/**
+ * Wrapped with fastify-plugin: setErrorHandler and setNotFoundHandler
+ * registered inside an unwrapped plugin only apply within that plugin's own
+ * encapsulation context, not to sibling-registered routes. Unwrapped, this
+ * handler silently never ran for stories/profiles/page-completions — every
+ * error fell through to Fastify's raw default JSON shape (no requestId, no
+ * problem+json content type), which happened to share just enough fields
+ * with our shape (status, code) that a shallow test wouldn't have noticed.
+ */
+export const errorsPlugin = fp(async function errorsPlugin(app: FastifyInstance) {
   app.setErrorHandler((error: FastifyError | ProblemError, request, reply) => {
     const requestId = randomUUID();
 
@@ -38,7 +48,13 @@ export async function errorsPlugin(app: FastifyInstance) {
     }
 
     const status = error.statusCode ?? 500;
-    const code = status === 500 ? "internal_error" : "bad_request";
+    // A schema-validation failure (zod, via fastify-type-provider-zod) is
+    // about the client's own request shape — safe to echo back and genuinely
+    // useful — unlike a 500, which could be an unhandled DB/driver error and
+    // must never leak internals to the client.
+    const isValidationError = status === 400 && (error.code === "FST_ERR_VALIDATION" || Array.isArray(error.validation));
+    const code = isValidationError ? "validation_error" : status === 500 ? "internal_error" : "bad_request";
+    const title = isValidationError ? error.message : status === 500 ? "Something went wrong." : "Bad request.";
 
     request.log.error({ err: error, requestId, status, code }, "request failed");
 
@@ -47,7 +63,7 @@ export async function errorsPlugin(app: FastifyInstance) {
       .type("application/problem+json")
       .send({
         type: `https://storylight.dev/problems/${code}`,
-        title: "Something went wrong.",
+        title,
         status,
         code,
         requestId,
@@ -63,4 +79,4 @@ export async function errorsPlugin(app: FastifyInstance) {
       requestId: randomUUID(),
     });
   });
-}
+});

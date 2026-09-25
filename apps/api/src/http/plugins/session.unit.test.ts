@@ -20,6 +20,7 @@ describe("requireFamily gate", () => {
     });
 
     expect(response.statusCode).toBe(401);
+    expect(response.headers["content-type"]).toContain("application/problem+json");
     expect(response.json().code).toBe("no_session");
     await app.close();
   });
@@ -34,6 +35,7 @@ describe("requireFamily gate", () => {
     });
 
     expect(response.statusCode).toBe(401);
+    expect(response.headers["content-type"]).toContain("application/problem+json");
     expect(response.json().code).toBe("no_session");
     await app.close();
   });
@@ -47,6 +49,7 @@ describe("CSRF header gate", () => {
     const response = await app.inject({ method: "POST", url: "/api/v1/session" });
 
     expect(response.statusCode).toBe(403);
+    expect(response.headers["content-type"]).toContain("application/problem+json");
     expect(response.json().code).toBe("missing_client_header");
     await app.close();
   });
@@ -56,6 +59,30 @@ describe("CSRF header gate", () => {
     const response = await app.inject({ method: "GET", url: "/api/v1/stories/moonlit-forest-01" });
 
     expect(response.statusCode).toBe(200);
+    await app.close();
+  });
+});
+
+describe("session creation rate limit", () => {
+  const env = loadEnv({ DATABASE_URL: "postgres://unused", NODE_ENV: "test" });
+
+  it("429s after 60 requests/minute from the same client (section 12)", async () => {
+    const app = buildApp(env);
+
+    // The rate-limit hook counts the request before the handler runs, so
+    // this doesn't need a real DB — only the 429 on request 61 matters here.
+    for (let i = 0; i < 60; i++) {
+      await app.inject({ method: "POST", url: "/api/v1/session", headers: { "x-storylight-client": "web" } });
+    }
+
+    const overLimit = await app.inject({
+      method: "POST",
+      url: "/api/v1/session",
+      headers: { "x-storylight-client": "web" },
+    });
+
+    expect(overLimit.statusCode).toBe(429);
+    expect(overLimit.headers["content-type"]).toContain("application/problem+json");
     await app.close();
   });
 });
