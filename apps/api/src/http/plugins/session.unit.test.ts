@@ -15,6 +15,7 @@ describe("requireFamily gate", () => {
     const response = await app.inject({
       method: "POST",
       url: "/api/v1/profiles",
+      headers: { "x-storylight-client": "web" },
       payload: { heroNameId: "aria", avatarComboId: "combo-1", pronouns: "she/her", ageBand: "5-6" },
     });
 
@@ -28,11 +29,33 @@ describe("requireFamily gate", () => {
     const response = await app.inject({
       method: "POST",
       url: "/api/v1/profiles/3fa85f64-5717-4562-b3fc-2c963f66afa6/page-completions",
+      headers: { "x-storylight-client": "web" },
       payload: { pageId: "moonlit-forest-01-p1", mode: "listen", dwellMs: 1000, helpTaps: 0 },
     });
 
     expect(response.statusCode).toBe(401);
     expect(response.json().code).toBe("no_session");
+    await app.close();
+  });
+});
+
+describe("CSRF header gate", () => {
+  const env = loadEnv({ DATABASE_URL: "postgres://unused", NODE_ENV: "test" });
+
+  it("rejects a mutation with no client header, even before checking the session", async () => {
+    const app = buildApp(env);
+    const response = await app.inject({ method: "POST", url: "/api/v1/session" });
+
+    expect(response.statusCode).toBe(403);
+    expect(response.json().code).toBe("missing_client_header");
+    await app.close();
+  });
+
+  it("never blocks a safe GET request", async () => {
+    const app = buildApp(env);
+    const response = await app.inject({ method: "GET", url: "/api/v1/stories/moonlit-forest-01" });
+
+    expect(response.statusCode).toBe(200);
     await app.close();
   });
 });

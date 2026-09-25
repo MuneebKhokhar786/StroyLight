@@ -113,6 +113,10 @@ body {
   border-radius: 1rem;
 }
 
+.reader-illustration--fallback {
+  background: linear-gradient(160deg, #2b2b5a, #4a4a8a);
+}
+
 /* Container query so landscape puts art beside the text, per section 5.5. */
 .reader-page {
   container-type: inline-size;

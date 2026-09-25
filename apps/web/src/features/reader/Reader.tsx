@@ -25,6 +25,7 @@ export function Reader({ story, profileId, onFinished }: ReaderProps) {
   const [pageIndex, setPageIndex] = useState(0);
   const [mode, setMode] = useState<ReaderMode>("listen");
   const [currentLine, setCurrentLine] = useState(0);
+  const [illustrationFailed, setIllustrationFailed] = useState(false);
 
   const page = story.pages[pageIndex]!;
   const pageEnterRef = useRef(Date.now());
@@ -33,6 +34,7 @@ export function Reader({ story, profileId, onFinished }: ReaderProps) {
   useEffect(() => {
     pageEnterRef.current = Date.now();
     setCurrentLine(0);
+    setIllustrationFailed(false);
   }, [pageIndex, mode]);
 
   useEffect(() => {
@@ -46,13 +48,20 @@ export function Reader({ story, profileId, onFinished }: ReaderProps) {
       return { kind: "sentence" as const, sentenceIndex: currentLine };
     }
     if (narration.phase.kind === "narrating") {
-      return { kind: "word" as const, wordIndex: narration.phase.word };
+      // Fallback matrix (section 5.6): word-level timing highlights the
+      // word; anything less precise highlights the whole sentence instead
+      // of a single word landing in the middle of a shared timing window.
+      if (page.timingQuality === "word") {
+        return { kind: "word" as const, wordIndex: narration.phase.word };
+      }
+      const sentenceIndex = page.tokens[narration.phase.word]?.sentence ?? 0;
+      return { kind: "sentence" as const, sentenceIndex };
     }
     if (narration.phase.kind === "awaitingStarWord") {
       return { kind: "starWord" as const, wordIndex: narration.phase.word };
     }
     return { kind: "none" as const };
-  }, [mode, currentLine, narration.phase]);
+  }, [mode, currentLine, narration.phase, page]);
 
   async function recordCompletion() {
     try {
@@ -63,8 +72,12 @@ export function Reader({ story, profileId, onFinished }: ReaderProps) {
         helpTaps: narration.helpTaps,
         starResults: narration.starResults.map((r) => ({ wordIndex: r.wordIndex, selfChecked: r.selfChecked })),
       });
-    } catch {
-      // Progress tracking is best-effort for the demo; reading itself never blocks on it.
+    } catch (err) {
+      // Progress tracking is best-effort: reading itself never blocks on it,
+      // and a child mid-story never sees this. Still logged so a real
+      // outage (the "Should"-tier offline outbox this doesn't try to be)
+      // shows up somewhere instead of vanishing silently.
+      console.error("page completion failed to record", err);
     }
   }
 
@@ -88,12 +101,20 @@ export function Reader({ story, profileId, onFinished }: ReaderProps) {
       <ModeSwitcher mode={mode} onChange={setMode} />
 
       <div className="reader-page">
-        <img
-          src={page.illustrationUrl}
-          alt=""
-          className="reader-illustration"
-          decoding="async"
-        />
+        {illustrationFailed ? (
+          // Section 5.6: illustration fails -> soft placeholder, story
+          // continues. This fallback is pure CSS (no network request), so
+          // it can never itself fail the way an image asset can.
+          <div className="reader-illustration reader-illustration--fallback" aria-hidden="true" />
+        ) : (
+          <img
+            src={page.illustrationUrl}
+            alt=""
+            className="reader-illustration"
+            decoding="async"
+            onError={() => setIllustrationFailed(true)}
+          />
+        )}
 
         {narration.phase.kind === "awaitingFirstTap" ? (
           <BigButton onClick={narration.unlock}>Tap to start</BigButton>

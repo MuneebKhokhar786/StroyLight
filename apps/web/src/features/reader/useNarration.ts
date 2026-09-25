@@ -61,7 +61,7 @@ export function useNarration(page: StoryPage, mode: ReaderMode): NarrationHandle
     }
 
     void player.load(page.narrationUrl ?? "").then(() => {
-      dispatch({ type: "PAGE_READY", hasAudio });
+      dispatch({ type: "PAGE_READY", hasAudio, timingQuality: page.timingQuality });
     });
 
     return () => {

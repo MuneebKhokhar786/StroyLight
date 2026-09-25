@@ -16,14 +16,18 @@ class ApiError extends Error {
   }
 }
 
+// Required on every mutation by the API's CSRF defense-in-depth check
+// (section 12) — a cross-site form POST can't set a custom header.
+const CLIENT_HEADER = { "x-storylight-client": "web" };
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   // Only set Content-Type when there's a body: Fastify's JSON parser rejects
   // an application/json request with no body as invalid JSON.
-  const headers: HeadersInit | undefined = init?.body
-    ? { "Content-Type": "application/json", ...init.headers }
-    : init?.headers;
+  const headers: HeadersInit = init?.body
+    ? { "Content-Type": "application/json", ...CLIENT_HEADER, ...init.headers }
+    : { ...CLIENT_HEADER, ...init?.headers };
 
-  const response = await fetch(`/api/v1${path}`, { ...init, ...(headers ? { headers } : {}) });
+  const response = await fetch(`/api/v1${path}`, { ...init, headers });
 
   if (!response.ok) {
     const body = await response.json().catch(() => null);

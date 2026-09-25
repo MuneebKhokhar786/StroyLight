@@ -1,4 +1,4 @@
-import { CreateProfileRequestSchema, ProfileSchema } from "@storylight/shared";
+import { CreateProfileRequestSchema, ProfileSchema, type AgeBand, type Pronouns } from "@storylight/shared";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import type { Db } from "../../../db/client.js";
 import { childProfiles } from "../../../db/schema.js";
@@ -31,8 +31,8 @@ export const profilesRoutes: FastifyPluginAsyncZod<{ db: Db }> = async (app, opt
         id: profile.id,
         heroNameId: profile.heroNameId,
         avatarComboId: profile.avatarComboId,
-        pronouns: profile.pronouns,
-        ageBand: profile.ageBand as "3-4" | "5-6" | "7-8",
+        pronouns: profile.pronouns as Pronouns,
+        ageBand: profile.ageBand as AgeBand,
       };
     },
   );

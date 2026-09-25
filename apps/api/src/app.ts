@@ -4,6 +4,7 @@ import { sql } from "drizzle-orm";
 import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 import type { Env } from "./config/env.js";
 import { errorsPlugin } from "./http/plugins/errors.js";
+import { csrfPlugin } from "./http/plugins/csrf.js";
 import { sessionPlugin } from "./http/plugins/session.js";
 import { storiesRoutes } from "./http/routes/v1/stories.js";
 import { profilesRoutes } from "./http/routes/v1/profiles.js";
@@ -36,6 +37,7 @@ export function buildApp(env: Env, db: Db = createDb(env)) {
   });
 
   app.register(errorsPlugin);
+  app.register(csrfPlugin);
   app.register(sessionPlugin, { db });
   app.register(storiesRoutes);
   app.register(profilesRoutes, { db });

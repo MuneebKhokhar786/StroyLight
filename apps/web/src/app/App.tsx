@@ -45,6 +45,16 @@ export function App() {
     }
   }
 
+  if ((view === "reading" || view === "finished") && storyQuery.isError) {
+    return (
+      <main className="landing">
+        <h1>Storylight</h1>
+        <p role="alert">The story ink ran dry — the shelf couldn&rsquo;t load. Please try again.</p>
+        <BigButton onClick={() => storyQuery.refetch()}>Try again</BigButton>
+      </main>
+    );
+  }
+
   if (view === "reading" && profileId && storyQuery.data) {
     return <Reader story={storyQuery.data} profileId={profileId} onFinished={() => setView("finished")} />;
   }
